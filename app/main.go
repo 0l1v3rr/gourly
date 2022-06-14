@@ -1,12 +1,22 @@
 package main
 
 import (
+	"fmt"
+
 	"github.com/0l1v3rr/gourly/controller"
+	"github.com/0l1v3rr/gourly/model"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
+	err := model.Setup()
+	if err != nil {
+		fmt.Println("An error occurred while connectiong to the database: ")
+		fmt.Println(err.Error())
+		return
+	}
+
 	r := gin.Default()
 
 	r.Use(cors.New(cors.Config{

@@ -32,7 +32,7 @@ func (URL) GetByID(id int) (URL, error) {
 }
 
 func (URL) Create(url URL) (URL, error) {
-	url.UniqueId = urlutil.GenerateRandomUrl(32)
+	url.UniqueId = urlutil.GenerateRandomUrl(6)
 	url.Clicks = 0
 
 	tx := DB.Create(&url)

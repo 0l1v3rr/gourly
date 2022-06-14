@@ -29,6 +29,7 @@ func main() {
 
 	r.GET("/api/v1/urls", controller.GetAllUrls)
 	r.GET("/api/v1/urls/:id", controller.GetUrlById)
+	r.GET("/url/:hash", controller.Redirect)
 	r.POST("/api/v1/urls", controller.CreateUrl)
 	r.PATCH("/api/v1/urls/:id", controller.IncrementUrlClicks)
 	r.DELETE("/api/v1/urls/:id", controller.DeleteUrl)

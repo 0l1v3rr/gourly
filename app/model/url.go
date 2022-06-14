@@ -31,6 +31,17 @@ func (URL) GetByID(id int) (URL, error) {
 	return url, nil
 }
 
+func (URL) GetByHash(hash string) (URL, error) {
+	var url URL
+
+	tx := DB.Where("unique_id = ?", hash).First(&url)
+	if tx.Error != nil {
+		return URL{}, tx.Error
+	}
+
+	return url, nil
+}
+
 func (URL) Create(url URL) (URL, error) {
 	url.UniqueId = urlutil.GenerateRandomUrl(6)
 	url.Clicks = 0

@@ -73,7 +73,7 @@ func DeleteUrl(c *gin.Context) {
 
 	err = model.URL{}.Delete(id)
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
+		c.JSON(http.StatusInternalServerError, gin.H{
 			"error": err.Error(),
 		})
 		return
@@ -93,11 +93,25 @@ func IncrementUrlClicks(c *gin.Context) {
 
 	url, err := model.URL{}.IncrementClicks(id)
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
+		c.JSON(http.StatusInternalServerError, gin.H{
 			"error": err.Error(),
 		})
 		return
 	}
 
 	c.JSON(http.StatusAccepted, url)
+}
+
+func Redirect(c *gin.Context) {
+	hash := c.Param("hash")
+
+	url, err := model.URL{}.GetByHash(hash)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"error": err.Error(),
+		})
+		return
+	}
+
+	c.Redirect(http.StatusMovedPermanently, url.RedirectTo)
 }

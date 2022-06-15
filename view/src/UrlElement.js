@@ -1,19 +1,23 @@
-const UrlElement = () => {
+const UrlElement = (props) => {
+    const url = props.url;
+    
     return (
-        <div className="flex border border-solid border-slate-300 rounded-sm mb-1">
-            <a target="_blank" href="http://localhost:8080/url/asdasd" 
+        <div className="flex border border-solid border-slate-300 rounded-sm mb-2 w-full">
+            <a target="_blank" href={`http://localhost:8080/url/${url.unique_id}`}
                 className="border-r border-solid border-slate-300 py-1.5 px-3 
-                transition duration-30 hover:text-gray-700">
-                localhost:8080/url/asdad
+                transition duration-30 hover:text-gray-600 hover:underline w-72 text-center">
+                localhost:8080/url/{url.unique_id}
             </a>
 
-            <a target="_blank" href="https://www.google.com"
+            <a target="_blank" href={url.redirect_to}
                 className="border-r border-solid border-slate-300 py-1.5 px-3 
-                transition duration-30 hover:text-gray-700">
-                google.com
+                transition duration-30 hover:text-gray-600 hover:underline w-64 text-center">
+                {url.redirect_to}
             </a>
 
-            <span className="py-1.5 px-3 border-r border-solid border-slate-300">0</span>
+            <span className="py-1.5 px-3 border-r border-solid border-slate-300 w-10 text-center">
+                {url.clicks}
+            </span>
 
             <div className="py-1 px-3">
                 <button type="button" className="bg-red-500 py-1.5 px-4 text-white rounded border 
